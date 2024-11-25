@@ -1,4 +1,5 @@
 <?php
+// lancer les test avec la commande vendor\bin\phpunit tests/
 
 use Symfony\Component\Dotenv\Dotenv;
 
