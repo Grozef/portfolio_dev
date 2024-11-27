@@ -1,231 +1,277 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Portfolio d'Artistes
-{% endblock %}
-
-{% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('build/assets_styles_app_css.css') }}">
-{% endblock %}
+{% block title %}Portfolio d'Artistes{% endblock %}
 
 {% block body %}
-	<style>
-.parallax-container {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 50vh; /* Hauteur de la section */
-    display: flex; /* Flexbox pour le centrage */
-    justify-content: center; /* Centrage horizontal */
-    align-items: center; /* Centrage vertical */
-    position: relative; /* Position relative pour positionner correctement les enfants */
-    overflow: hidden;
-}
+<style>
+    .parallax-container {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
 
-.parallax-text {
-    display: flex;
-    flex-direction: column;
-    position: relative; /* Pour éviter de suivre le positionnement absolu de l'image */
-    text-align: center; /* Centrage du texte */
-    color: white; /* Couleur du texte */
-    z-index: 1; /* Assure que le texte est au-dessus de l'image */
-}
+    .parallax-text {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        text-align: center;
+        color: white;
+        z-index: 1;
+    }
 
-.parallax-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Assure une meilleure lisibilité */
-    z-index: 0;
-}
-.parallax-text h1 {
-    justify-content: center;
-    margin: 2rem; /* Supprime les marges par défaut */
-    font-size: 3rem; /* Ajustez la taille selon vos besoins */
-    line-height: 1.2; /* Contrôle de l'espacement vertical */
-    color: white; /* Assure que le texte est lisible */
-}
+    .parallax-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
 
-.parallax-text p {
-    justify-content: center;
-    margin: 1.5rem; /* Ajoute un léger espacement entre le titre et le texte */
-    font-size: 1.5rem; /* Taille du texte succinct */
-    line-height: 1.5; /* Meilleur espacement pour le paragraphe */
-    color: white;
-}
+    .parallax-text h1 {
+        justify-content: center;
+        margin: 2rem;
+        font-size: 3rem;
+        line-height: 1.2;
+        color: white;
+    }
 
+    .parallax-text p {
+        justify-content: center;
+        margin: 1.5rem;
+        font-size: 1.5rem;
+        line-height: 1.5;
+        color: white;
+    }
 
-		.parallax-image {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-attachment: fixed;
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-		}
+    .parallax-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-		.parallax-text {
-			position: relative;
-			z-index: 1;
-			text-align: center;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
+    .parallax-text {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-		.content-container {
-			padding: 20px;
-		}
+    .content-container {
+        padding: 20px;
+    }
 
-		.image-section {
-			display: flex;
-			flex-direction: column;
-			gap: 20px;
-		}
+    .image-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 
-		.image-left,
-		.image-right {
-			display: flex;
-			align-items: center;
-			margin: 40px 0; 
-			padding: 20px; 
-			background-color: #f9f9f9; 
-			border-radius: 10px; 
-		}
+    .image-left,
+    .image-right {
+        display: flex;
+        align-items: center;
+        margin: 40px 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
 
-		.image-left img {
-			width: 50%;
-			margin-right: 20px;
-			margin-left: 50px;
-		}
+    .image-left img {
+        width: 50%;
+        margin-right: 20px;
+        margin-left: 50px;
+    }
 
-		.image-right img {
-			width: 50%;
-			margin-left: 20px;
-			margin-right: 50px;
-		}
+    .image-right img {
+        width: 50%;
+        margin-left: 20px;
+        margin-right: 50px;
+    }
 
-		.text-right,
-		.text-left {
-			width: 50%;
-		}
+    .text-right,
+    .text-left {
+        width: 50%;
+    }
 
-		.text-right {
-			text-align: left;
-		}
+    .text-right {
+        text-align: left;
+    }
 
-		.text-left {
-			text-align: left;
-		}
+    .text-left {
+        text-align: left;
+    }
 
-		.image-section img {
-			transition: transform 2s ease-in-out;
-		}
+    .image-section img {
+        transition: transform 2s ease-in-out;
+    }
 
-		.image-section .text-right,
-		.image-section .text-left {
-			transition: transform 3s ease-in-out;
-		}
+    .image-section .text-right,
+    .image-section .text-left {
+        transition: transform 3s ease-in-out;
+    }
 
-		.image-section img.initial-left {
-			transform: translateX(-100%);
-		}
+    .image-section img.initial-left {
+        transform: translateX(-100%);
+    }
 
-		.image-section img.initial-right {
-			transform: translateX(100%);
-		}
+    .image-section img.initial-right {
+        transform: translateX(100%);
+    }
 
-		.image-section .text-right.initial-right,
-		.image-section .text-left.initial-right {
-			transform: translateX(100%);
-		}
+    .image-section .text-right.initial-right,
+    .image-section .text-left.initial-right {
+        transform: translateX(100%);
+    }
 
-		.image-section .text-right.initial-left,
-		.image-section .text-left.initial-left {
-			transform: translateX(-100%);
-		}
+    .image-section .text-right.initial-left,
+    .image-section .text-left.initial-left {
+        transform: translateX(-100%);
+    }
 
-		.image-section img.in-view {
-			transform: translateX(0);
-		}
+    .image-section img.in-view {
+        transform: translateX(0);
+    }
 
-		.image-section .text-right.in-view,
-		.image-section .text-left.in-view {
-			transform: translateX(0);
-		}
+    .image-section .text-right.in-view,
+    .image-section .text-left.in-view {
+        transform: translateX(0);
+    }
 
-		.image-section img:hover {
-			transform: scale(1.1) !important;
-		}
-	</style>
+    .image-section img:hover {
+        transform: scale(1.1) !important;
+    }
 
-	<main class="bg-gray-100">
-<div class="parallax-container" style="background-image: url('{{ asset('assets/img/glops/coclit.jpg') }}');">
-    <div class="parallax-text">
-        <h1 class="text-white text-4xl font-bold">Titre de la Page</h1>
-        <p class="text-white text-lg">Texte succinct</p>
+    /* Section contenant les images superposées */
+    .overlapping-images-container {
+        position: relative;
+        height: 50vh; /* Ajustez la hauteur comme nécessaire */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .image-container {
+        position: relative;
+        width: 60%; /* Ajustez la largeur des images */
+        height: 100%;
+    }
+
+    /* Styles pour les images */
+    .image-container img {
+        position: absolute;
+        width: 100%;
+        transition: transform 2s ease-in-out; /* Transition pour le chevauchement */
+    }
+
+    .image-top {
+        top: 0;
+        z-index: 2; /* L'image du dessus doit être devant */
+    }
+
+    .image-bottom {
+        top: 100%; /* Position initiale de l'image du bas */
+        z-index: 1; /* L'image du bas est derrière */
+    }
+
+    /* Lorsque l'image entre dans le viewport, on active la transition pour les superposer */
+    .in-view .image-top {
+        transform: translateY(50%); /* Déplacer l'image du haut pour la superposer */
+    }
+
+    .in-view .image-bottom {
+        transform: translateY(-50%); /* Déplacer l'image du bas pour la superposer */
+    }
+</style>
+
+<main class="bg-gray-100">
+    <div class="parallax-container" style="background-image: url('{{ asset('assets/img/glops/coclit.jpg') }}');">
+        <div class="parallax-text">
+            <h1 class="text-white text-4xl font-bold">Titre de la Page</h1>
+            <p class="text-white text-lg">Texte succinct</p>
+        </div>
     </div>
-</div>
 
+    <div class="content-container">
+        <div class="image-section">
+            <div class="image-left">
+                <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="w-full h-full object-cover initial-right">
+                <div class="text-right initial-right">
+                    <h2 class="text-2xl font-bold">Titre 1</h2>
+                    <p class="text-lg">Texte 1</p>
+                </div>
+            </div>
+            <div class="image-right">
+                <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="w-full h-full object-cover initial-left">
+                <div class="text-left initial-left">
+                    <h2 class="text-2xl font-bold">Titre 2</h2>
+                    <p class="text-lg">Texte 2</p>
+                </div>
+            </div>
+            <div class="image-left">
+                <img src="{{ asset('assets/img/glops/mixtur.jpg') }}" alt="Image 3" class="w-full h-full object-cover initial-right">
+                <div class="text-right initial-right">
+                    <h2 class="text-2xl font-bold">Titre 3</h2>
+                    <p class="text-lg">Texte 3</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-		<div class="content-container">
-			<div class="image-section">
-				<div class="image-left">
-					<img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="w-full h-full object-cover initial-right">
-					<div class="text-right initial-right">
-						<h2 class="text-2xl font-bold">Titre 1</h2>
-						<p class="text-lg">Texte 1</p>
-					</div>
-				</div>
-				<div class="image-right">
-					<img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="w-full h-full object-cover initial-left">
-					<div class="text-left initial-left">
-						<h2 class="text-2xl font-bold">Titre 2</h2>
-						<p class="text-lg">Texte 2</p>
-					</div>
-				</div>
-				<div class="image-left">
-					<img src="{{ asset('assets/img/glops/mixtur.jpg') }}" alt="Image 3" class="w-full h-full object-cover initial-right">
-					<div class="text-right initial-right">
-						<h2 class="text-2xl font-bold">Titre 3</h2>
-						<p class="text-lg">Texte 3</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+    <!-- Nouvelle section avec les deux images superposées -->
+    <div class="overlapping-images-container">
+        <div class="image-container">
+            <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="image-top">
+            <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="image-bottom">
+        </div>
+    </div>
+</main>
 {% endblock %}
 
 {% block javascripts %}
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-const sections = document.querySelectorAll('.image-left, .image-right');
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sections = document.querySelectorAll('.image-left, .image-right, .overlapping-images-container');
 
-sections.forEach(section => {
-const image = section.querySelector('img');
-const text = section.querySelector('.text-right, .text-left');
+    sections.forEach(function (section) {
+        const images = section.querySelectorAll('img');
+        const texts = section.querySelectorAll('.text-right, .text-left');
 
-// Observer l'entrée dans le viewport pour chaque section
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-image.classList.add('in-view');
-text.classList.add('in-view');
-} else {
-image.classList.remove('in-view');
-text.classList.remove('in-view');
-}
-});
-}, {threshold: 0.1});
+        // Observer l'entrée dans le viewport pour chaque section
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    section.classList.add('in-view');
+                    images.forEach(img => img.classList.add('in-view'));
+                    texts.forEach(text => text.classList.add('in-view'));
+                } else {
+                    section.classList.remove('in-view');
+                    images.forEach(img => img.classList.remove('in-view'));
+                    texts.forEach(text => text.classList.remove('in-view'));
+                }
+            });
+        }, { threshold: 0.1 });
 
-observer.observe(section);
+        observer.observe(section);
+    });
 });
-});
-	</script>
+</script>
 {% endblock %}
