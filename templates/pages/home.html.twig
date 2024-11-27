@@ -4,6 +4,7 @@
 
 {% block body %}
 <style>
+    /* Section contenant la parallaxe */
     .parallax-container {
         background-attachment: fixed;
         background-position: center;
@@ -74,6 +75,7 @@
         transform: translate(-50%, -50%);
     }
 
+    /* Section contenant les images avec transitions latérales */
     .content-container {
         padding: 20px;
     }
@@ -94,16 +96,11 @@
         border-radius: 10px;
     }
 
-    .image-left img {
-        width: 50%;
-        margin-right: 20px;
-        margin-left: 50px;
-    }
-
+    .image-left img,
     .image-right img {
-        width: 50%;
-        margin-left: 20px;
-        margin-right: 50px;
+        width: 100%;
+        max-width: 50%;
+        margin: 0 20px;
     }
 
     .text-right,
@@ -162,7 +159,7 @@
     /* Section contenant les images superposées */
     .overlapping-images-container {
         position: relative;
-        height: 50vh; /* Ajustez la hauteur comme nécessaire */
+        height: 40vh; /* Ajustez la hauteur comme nécessaire */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -183,22 +180,33 @@
     }
 
     .image-top {
-        top: 0;
+        top: -50%;
+        left: -50%; /* Position initiale de l'image du haut */
         z-index: 2; /* L'image du dessus doit être devant */
     }
 
     .image-bottom {
-        top: 100%; /* Position initiale de l'image du bas */
+        top: 150%;
+        left: 150%; /* Position initiale de l'image du bas */
         z-index: 1; /* L'image du bas est derrière */
     }
 
     /* Lorsque l'image entre dans le viewport, on active la transition pour les superposer */
     .in-view .image-top {
-        transform: translateY(50%); /* Déplacer l'image du haut pour la superposer */
+        transform: translate(50%, 50%); /* Déplacer l'image du haut pour la superposer */
     }
 
     .in-view .image-bottom {
-        transform: translateY(-50%); /* Déplacer l'image du bas pour la superposer */
+        transform: translate(-50%, -50%); /* Déplacer l'image du bas pour la superposer */
+    }
+
+    /* Effet de survol pour passer l'une devant l'autre */
+    .image-container:hover .image-top {
+        z-index: 1;
+    }
+
+    .image-container:hover .image-bottom {
+        z-index: 2;
     }
 </style>
 
