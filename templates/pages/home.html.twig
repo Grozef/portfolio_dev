@@ -1,176 +1,190 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Portfolio d'Artistes{% endblock %}
+{% block title %}Portfolio d'Artistes
+{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/assets_styles_app_css.css') }}">
+	<link rel="stylesheet" href="{{ asset('build/assets_styles_app_css.css') }}">
 {% endblock %}
 
 {% block body %}
-<style>
-    .parallax-container {
-        position: relative;
-        height: 50vh;
-        overflow: hidden;
-    }
+	<style>
+		.parallax-container {
+			position: relative;
+			height: 50vh;
+			overflow: hidden;
+		}
 
-    .parallax-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
+		.parallax-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 
-    .parallax-text {
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+		.parallax-text {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
 
-    .content-container {
-        padding: 20px;
-    }
+		.content-container {
+			padding: 20px;
+		}
 
-    .image-section {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+		.image-section {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
 
-    .image-left, .image-right {
-        display: flex;
-        align-items: center;
-    }
+		.image-left,
+		.image-right {
+			display: flex;
+			align-items: center;
+			margin: 40px 0; 
+			padding: 20px; 
+			background-color: #f9f9f9; 
+			border-radius: 10px; 
+		}
 
-    .image-left img {
-        width: 50%;
-        margin-right: 20px;
-        margin-left: 50px;
-    }
+		.image-left img {
+			width: 50%;
+			margin-right: 20px;
+			margin-left: 50px;
+		}
 
-    .image-right img {
-        width: 50%;
-        margin-left: 20px;
-        margin-right: 50px;
-    }
+		.image-right img {
+			width: 50%;
+			margin-left: 20px;
+			margin-right: 50px;
+		}
 
-    .text-right, .text-left {
-        width: 50%;
-    }
+		.text-right,
+		.text-left {
+			width: 50%;
+		}
 
-    .text-right {
-        text-align: left;
-    }
+		.text-right {
+			text-align: left;
+		}
 
-    .text-left {
-        text-align: left;
-    }
+		.text-left {
+			text-align: left;
+		}
 
-    .image-section img {
-        transition: transform 1s ease-in-out;
-    }
+		.image-section img {
+			transition: transform 1s ease-in-out;
+		}
 
-    .image-section .text-right, .image-section .text-left {
-        transition: transform 2s ease-in-out;
-    }
-</style>
+		.image-section .text-right,
+		.image-section .text-left {
+			transition: transform 2s ease-in-out;
+		}
 
-<main class="bg-gray-100">
-    <div class="parallax-container">
-        <div class="parallax-image">
-            <img src="{{ asset('assets/img/glops/coclit.jpg') }}" alt="Parallax Image" class="w-full h-full object-cover">
-            <div class="parallax-text">
-                <h1 class="text-white text-4xl font-bold">Titre de la Page</h1>
-                <p class="text-white text-lg">Texte succinct</p>
-            </div>
-        </div>
-    </div>
+		.image-section img.initial-left {
+			transform: translateX(-100%);
+		}
 
-    <div class="content-container">
-        <div class="image-section">
-            <div class="image-left">
-                <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="w-full h-full object-cover">
-                <div class="text-right">
-                    <h2 class="text-2xl font-bold">Titre 1</h2>
-                    <p class="text-lg">Texte 1</p>
-                </div>
-            </div>
-            <div class="image-right">
-                <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="w-full h-full object-cover">
-                <div class="text-left">
-                    <h2 class="text-2xl font-bold">Titre 2</h2>
-                    <p class="text-lg">Texte 2</p>
-                </div>
-            </div>
-            <div class="image-left">
-                <img src="{{ asset('assets/img/glops/mixtur.jpg') }}" alt="Image 3" class="w-full h-full object-cover">
-                <div class="text-right">
-                    <h2 class="text-2xl font-bold">Titre 3</h2>
-                    <p class="text-lg">Texte 3</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+		.image-section img.initial-right {
+			transform: translateX(100%);
+		}
+
+		.image-section .text-right.initial-right,
+		.image-section .text-left.initial-right {
+			transform: translateX(100%);
+		}
+
+		.image-section .text-right.initial-left,
+		.image-section .text-left.initial-left {
+			transform: translateX(-100%);
+		}
+
+		.image-section img.in-view {
+			transform: translateX(0);
+		}
+
+		.image-section .text-right.in-view,
+		.image-section .text-left.in-view {
+			transform: translateX(0);
+		}
+
+		.image-section img:hover {
+			transform: scale(1.1) !important;
+		}
+	</style>
+
+	<main class="bg-gray-100">
+		<div class="parallax-container">
+			<div class="parallax-image">
+				<img src="{{ asset('assets/img/glops/coclit.jpg') }}" alt="Parallax Image" class="w-full h-full object-cover">
+				<div class="parallax-text">
+					<h1 class="text-white text-4xl font-bold">Titre de la Page</h1>
+					<p class="text-white text-lg">Texte succinct</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-container">
+			<div class="image-section">
+				<div class="image-left">
+					<img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="w-full h-full object-cover initial-right">
+					<div class="text-right initial-right">
+						<h2 class="text-2xl font-bold">Titre 1</h2>
+						<p class="text-lg">Texte 1</p>
+					</div>
+				</div>
+				<div class="image-right">
+					<img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="w-full h-full object-cover initial-left">
+					<div class="text-left initial-left">
+						<h2 class="text-2xl font-bold">Titre 2</h2>
+						<p class="text-lg">Texte 2</p>
+					</div>
+				</div>
+				<div class="image-left">
+					<img src="{{ asset('assets/img/glops/mixtur.jpg') }}" alt="Image 3" class="w-full h-full object-cover initial-right">
+					<div class="text-right initial-right">
+						<h2 class="text-2xl font-bold">Titre 3</h2>
+						<p class="text-lg">Texte 3</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 {% endblock %}
 
 {% block javascripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const images = document.querySelectorAll('.image-section img');
-    const texts = document.querySelectorAll('.image-section .text-right, .image-section .text-left');
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+const sections = document.querySelectorAll('.image-left, .image-right');
 
-    images.forEach((image, index) => {
-        let initialTransform = '';
-        let initialTextTransform = '';
+sections.forEach(section => {
+const image = section.querySelector('img');
+const text = section.querySelector('.text-right, .text-left');
 
-        // Définir les transformations initiales pour chaque image et son texte
-        if (index === 1) {
-            initialTransform = 'translateX(-100%)';  // Image 2 commence à gauche
-            initialTextTransform = 'translateX(100%)';  // Texte de l'image 2 commence à droite
-        } else {
-            initialTransform = (index % 2 === 0) ? 'translateX(100%)' : 'translateX(-100%)'; // Image 1 et autres
-            initialTextTransform = 'translateX(100%)';  // Texte de gauche commence à droite
-        }
-
-        image.style.transform = initialTransform;
-        texts[index].style.transform = initialTextTransform;
-
-        // Observer l'entrée dans le viewport pour chaque image
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    image.style.transform = 'translateX(0)';
-                    texts[index].style.transform = 'translateX(0)';
-                } else {
-                    image.style.transform = initialTransform;
-                    texts[index].style.transform = initialTextTransform;
-                }
-            });
-        }, { threshold: 0.1 });
-
-        observer.observe(image);
-    });
-
-    // Animation d'agrandissement des images lors du survol
-    images.forEach(image => {
-        image.addEventListener('mouseenter', () => {
-            image.style.transform = 'scale(1.1)';
-        });
-
-        image.addEventListener('mouseleave', () => {
-            image.style.transform = 'scale(1)';
-        });
-    });
+// Observer l'entrée dans le viewport pour chaque section
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+image.classList.add('in-view');
+text.classList.add('in-view');
+} else {
+image.classList.remove('in-view');
+text.classList.remove('in-view');
+}
 });
+}, {threshold: 0.1});
 
-</script>
+observer.observe(section);
+});
+});
+	</script>
 {% endblock %}

@@ -2,6 +2,10 @@
 
 {% block title %}Portfolio d'Artistes{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/assets_styles_app_css.css') }}">
+{% endblock %}
+
 {% block body %}
 <style>
     .parallax-container {
@@ -49,11 +53,13 @@
     .image-left img {
         width: 50%;
         margin-right: 20px;
+        margin-left: 50px;
     }
 
     .image-right img {
         width: 50%;
         margin-left: 20px;
+        margin-right: 50px;
     }
 
     .text-right, .text-left {
@@ -61,18 +67,26 @@
     }
 
     .text-right {
-        text-align: right;
+        text-align: left;
     }
 
     .text-left {
         text-align: left;
+    }
+
+    .image-section img {
+        transition: transform 1s ease-in-out;
+    }
+
+    .image-section .text-right, .image-section .text-left {
+        transition: transform 2s ease-in-out;
     }
 </style>
 
 <main class="bg-gray-100">
     <div class="parallax-container">
         <div class="parallax-image">
-            <img src="public/assets/img/glops/bloqués dans les dunes.jpg" alt="Parallax Image" class="w-full h-full object-cover">
+            <img src="{{ asset('assets/img/glops/coclit.jpg') }}" alt="Parallax Image" class="w-full h-full object-cover">
             <div class="parallax-text">
                 <h1 class="text-white text-4xl font-bold">Titre de la Page</h1>
                 <p class="text-white text-lg">Texte succinct</p>
@@ -83,21 +97,21 @@
     <div class="content-container">
         <div class="image-section">
             <div class="image-left">
-                <img src="public/assets/img/glops/embrouillocrée.jpg" alt="Image 1" class="w-full h-full object-cover">
+                <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="w-full h-full object-cover">
                 <div class="text-right">
                     <h2 class="text-2xl font-bold">Titre 1</h2>
                     <p class="text-lg">Texte 1</p>
                 </div>
             </div>
             <div class="image-right">
-                <img src="public/assets/img/glops/génuphard.jpg" alt="Image 2" class="w-full h-full object-cover">
+                <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="w-full h-full object-cover">
                 <div class="text-left">
                     <h2 class="text-2xl font-bold">Titre 2</h2>
                     <p class="text-lg">Texte 2</p>
                 </div>
             </div>
             <div class="image-left">
-                <img src="public/assets/img/glops/mixtur.jpg" alt="Image 3" class="w-full h-full object-cover">
+                <img src="{{ asset('assets/img/glops/mixtur.jpg') }}" alt="Image 3" class="w-full h-full object-cover">
                 <div class="text-right">
                     <h2 class="text-2xl font-bold">Titre 3</h2>
                     <p class="text-lg">Texte 3</p>
@@ -112,17 +126,33 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const images = document.querySelectorAll('.image-section img');
+    const texts = document.querySelectorAll('.image-section .text-right, .image-section .text-left');
 
-    images.forEach(image => {
-        image.style.transition = 'transform 0.5s ease-in-out';
-        image.style.transform = 'translateX(100%)';
+    images.forEach((image, index) => {
+        let initialTransform = '';
+        let initialTextTransform = '';
 
+        // Définir les transformations initiales pour chaque image et son texte
+        if (index === 1) {
+            initialTransform = 'translateX(-100%)';  // Image 2 commence à gauche
+            initialTextTransform = 'translateX(100%)';  // Texte de l'image 2 commence à droite
+        } else {
+            initialTransform = (index % 2 === 0) ? 'translateX(100%)' : 'translateX(-100%)'; // Image 1 et autres
+            initialTextTransform = 'translateX(100%)';  // Texte de gauche commence à droite
+        }
+
+        image.style.transform = initialTransform;
+        texts[index].style.transform = initialTextTransform;
+
+        // Observer l'entrée dans le viewport pour chaque image
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     image.style.transform = 'translateX(0)';
+                    texts[index].style.transform = 'translateX(0)';
                 } else {
-                    image.style.transform = 'translateX(100%)';
+                    image.style.transform = initialTransform;
+                    texts[index].style.transform = initialTextTransform;
                 }
             });
         }, { threshold: 0.1 });
@@ -130,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(image);
     });
 
+    // Animation d'agrandissement des images lors du survol
     images.forEach(image => {
         image.addEventListener('mouseenter', () => {
             image.style.transform = 'scale(1.1)';
@@ -140,5 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 </script>
 {% endblock %}
