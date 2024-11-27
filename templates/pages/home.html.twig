@@ -156,57 +156,81 @@
         transform: scale(1.1) !important;
     }
 
-    /* Section contenant les images superposées */
-    .overlapping-images-container {
-        position: relative;
-        height: 40vh; /* Ajustez la hauteur comme nécessaire */
+    /* Section contenant les images avec transitions diagonales */
+    .diagonal-image-section {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .diagonal-image-left,
+    .diagonal-image-right {
+        display: flex;
         align-items: center;
-        overflow: hidden;
+        margin: 40px 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
     }
 
-    .image-container {
-        position: relative;
-        width: 60%; /* Ajustez la largeur des images */
-        height: 100%;
-    }
-
-    /* Styles pour les images */
-    .image-container img {
-        position: absolute;
+    .diagonal-image-left img,
+    .diagonal-image-right img {
         width: 100%;
-        transition: transform 2s ease-in-out; /* Transition pour le chevauchement */
+        max-width: 50%;
+        margin: 0 20px;
     }
 
-    .image-top {
-        top: -50%;
-        left: -50%; /* Position initiale de l'image du haut */
-        z-index: 2; /* L'image du dessus doit être devant */
+    .diagonal-image-left .text-right,
+    .diagonal-image-right .text-left {
+        width: 50%;
     }
 
-    .image-bottom {
-        top: 150%;
-        left: 150%; /* Position initiale de l'image du bas */
-        z-index: 1; /* L'image du bas est derrière */
+    .diagonal-image-left .text-right {
+        text-align: left;
     }
 
-    /* Lorsque l'image entre dans le viewport, on active la transition pour les superposer */
-    .in-view .image-top {
-        transform: translate(50%, 50%); /* Déplacer l'image du haut pour la superposer */
+    .diagonal-image-right .text-left {
+        text-align: left;
     }
 
-    .in-view .image-bottom {
-        transform: translate(-50%, -50%); /* Déplacer l'image du bas pour la superposer */
+    .diagonal-image-section img {
+        transition: transform 2s ease-in-out;
     }
 
-    /* Effet de survol pour passer l'une devant l'autre */
-    .image-container:hover .image-top {
-        z-index: 1;
+    .diagonal-image-section .text-right,
+    .diagonal-image-section .text-left {
+        transition: transform 3s ease-in-out;
     }
 
-    .image-container:hover .image-bottom {
-        z-index: 2;
+    .diagonal-image-section img.initial-top-left {
+        transform: translate(-100%, -100%);
+    }
+
+    .diagonal-image-section img.initial-bottom-right {
+        transform: translate(100%, 100%);
+    }
+
+    .diagonal-image-section .text-right.initial-top-left,
+    .diagonal-image-section .text-left.initial-top-left {
+        transform: translate(-100%, -100%);
+    }
+
+    .diagonal-image-section .text-right.initial-bottom-right,
+    .diagonal-image-section .text-left.initial-bottom-right {
+        transform: translate(100%, 100%);
+    }
+
+    .diagonal-image-section img.in-view {
+        transform: translate(0, 0);
+    }
+
+    .diagonal-image-section .text-right.in-view,
+    .diagonal-image-section .text-left.in-view {
+        transform: translate(0, 0);
+    }
+
+    .diagonal-image-section img:hover {
+        transform: scale(1.1) !important;
     }
 </style>
 
@@ -244,11 +268,23 @@
         </div>
     </div>
 
-    <!-- Nouvelle section avec les deux images superposées -->
-    <div class="overlapping-images-container">
-        <div class="image-container">
-            <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="image-top">
-            <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="image-bottom">
+    <!-- Nouvelle section avec les deux images avec transitions diagonales -->
+    <div class="content-container">
+        <div class="diagonal-image-section">
+            <div class="diagonal-image-left">
+                <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 4" class="w-full h-full object-cover initial-top-left">
+                <div class="text-right initial-top-left">
+                    <h2 class="text-2xl font-bold">Titre 4</h2>
+                    <p class="text-lg">Texte 4</p>
+                </div>
+            </div>
+            <div class="diagonal-image-right">
+                <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 5" class="w-full h-full object-cover initial-bottom-right">
+                <div class="text-left initial-bottom-right">
+                    <h2 class="text-2xl font-bold">Titre 5</h2>
+                    <p class="text-lg">Texte 5</p>
+                </div>
+            </div>
         </div>
     </div>
 </main>
@@ -257,7 +293,7 @@
 {% block javascripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const sections = document.querySelectorAll('.image-left, .image-right, .overlapping-images-container');
+    const sections = document.querySelectorAll('.image-left, .image-right, .diagonal-image-left, .diagonal-image-right');
 
     sections.forEach(function (section) {
         const images = section.querySelectorAll('img');
