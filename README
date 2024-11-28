@@ -1,0 +1,15 @@
+git init
+git clone git@github.com:Grozef/portfolio_dev.git
+cd C:\laragon\www\portfolios\portfolio_dev
+C:\laragon\www\portfolios\portfolio_dev> code .
+C:\laragon\www\portfolios\portfolio_dev> composer install
+C:\laragon\www\portfolios\portfolio_dev> npm init -y
+C:\laragon\www\portfolios\portfolio_dev> npm install
+C:\laragon\www\portfolios\portfolio_dev> npm install --save-dev webpack webpack-cli
+C:\laragon\www\portfolios\portfolio_dev> composer require symfony/webpack-encore-bundle
+C:\laragon\www\portfolios\portfolio_dev> composer require symfony/stimulus-bundle
+C:\laragon\www\portfolios\portfolio_dev> npm install @symfony/stimulus-bridge --save-dev
+C:\laragon\www\portfolios\portfolio_dev> npm run dev
+
+
+
