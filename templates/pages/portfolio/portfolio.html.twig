@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portfolio d'Artistes{% endblock %}
+
+{% block body %}
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section id="intro" class="mb-12">
+        <h1 class="text-4xl font-bold text-center mb-6">Bienvenue dans notre Portfolio</h1>
+        <p class="text-center text-lg">Découvrez les œuvres de nos artistes talentueux.</p>
+    </section>
+
+    <section id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {% for i in 1..30 %}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="https://via.placeholder.com/300" alt="Image {{ i }}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold">Titre de l'œuvre {{ i }}</h2>
+                    <p class="text-gray-600">Description de l'œuvre {{ i }}.</p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+    <section id="animations" class="mt-12">
+        <h2 class="text-3xl font-bold text-center mb-6">Animations</h2>
+        <div class="flex justify-center space-x-4">
+            <div class="w-1/3 bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold">Animation 1</h3>
+                <p class="text-gray-600">Description de l'animation 1.</p>
+            </div>
+            <div class="w-1/3 bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold">Animation 2</h3>
+                <p class="text-gray-600">Description de l'animation 2.</p>
+            </div>
+            <div class="w-1/3 bg-white shadow-md rounded-lg p-4">
+                <h3 class="text-xl font-semibold">Animation 3</h3>
+                <p class="text-gray-600">Description de l'animation 3.</p>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    // Exemple d'animation JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const galleryItems = document.querySelectorAll('#gallery div');
+        galleryItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('opacity-100', 'transform', 'translate-y-0');
+            }, index * 100);
+        });
+    });
+</script>
+{% endblock %}

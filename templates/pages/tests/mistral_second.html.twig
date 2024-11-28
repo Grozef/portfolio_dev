@@ -1,0 +1,288 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Portfolio d'Artistes{% endblock %}
+
+{% block body %}
+<style>
+    /* Section contenant la parallaxe */
+    .parallax-container {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .parallax-text {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        text-align: center;
+        color: white;
+        z-index: 1;
+    }
+
+    .parallax-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+    .parallax-text h1 {
+        justify-content: center;
+        margin: 2rem;
+        font-size: 3rem;
+        line-height: 1.2;
+        color: white;
+    }
+
+    .parallax-text p {
+        justify-content: center;
+        margin: 1.5rem;
+        font-size: 1.5rem;
+        line-height: 1.5;
+        color: white;
+    }
+
+    .parallax-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .parallax-text {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Section contenant les images avec transitions latérales */
+    .content-container {
+        padding: 20px;
+    }
+
+    .image-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .image-left,
+    .image-right {
+        display: flex;
+        align-items: center;
+        margin: 40px 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+
+    .image-left img,
+    .image-right img {
+        width: 100%;
+        max-width: 50%;
+        margin: 0 20px;
+    }
+
+    .text-right,
+    .text-left {
+        width: 50%;
+    }
+
+    .text-right {
+        text-align: left;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .image-section img {
+        transition: transform 2s ease-in-out;
+    }
+
+    .image-section .text-right,
+    .image-section .text-left {
+        transition: transform 3s ease-in-out;
+    }
+
+    .image-section img.initial-left {
+        transform: translateX(-100%);
+    }
+
+    .image-section img.initial-right {
+        transform: translateX(100%);
+    }
+
+    .image-section .text-right.initial-right,
+    .image-section .text-left.initial-right {
+        transform: translateX(100%);
+    }
+
+    .image-section .text-right.initial-left,
+    .image-section .text-left.initial-left {
+        transform: translateX(-100%);
+    }
+
+    .image-section img.in-view {
+        transform: translateX(0);
+    }
+
+    .image-section .text-right.in-view,
+    .image-section .text-left.in-view {
+        transform: translateX(0);
+    }
+
+    .image-section img:hover {
+        transform: scale(1.1) !important;
+    }
+
+    /* Section contenant les images superposées */
+    .overlapping-images-container {
+        position: relative;
+        height: 100vh; /* Ajustez la hauteur comme nécessaire */
+        width: 100vw; /* Ajustez la largeur comme nécessaire */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .image-container {
+        position: relative;
+        width: 60%; /* Ajustez la largeur des images */
+        height: 100%;
+    }
+
+    /* Styles pour les images */
+    .image-container img {
+        position: absolute;
+        width: 100%;
+        transition: transform 2s ease-in-out; /* Transition pour le chevauchement */
+    }
+
+    .image-top {
+        top: -50%;
+        left: 50%; /* Position initiale de l'image du haut */
+        transform: translateX(-50%);
+        z-index: 2; /* L'image du dessus doit être devant */
+    }
+
+    .image-bottom {
+        top: 150%;
+        left: 50%; /* Position initiale de l'image du bas */
+        transform: translateX(-50%);
+        z-index: 1; /* L'image du bas est derrière */
+    }
+
+    /* Lorsque l'image entre dans le viewport, on active la transition pour les superposer */
+    .in-view .image-top {
+        transform: translate(-50%, -50%); /* Déplacer l'image du haut pour la superposer */
+    }
+
+    .in-view .image-bottom {
+        transform: translate(-50%, -50%); /* Déplacer l'image du bas pour la superposer */
+    }
+
+    /* Effet de survol pour passer l'une devant l'autre */
+    .image-container:hover .image-top {
+        z-index: 1;
+    }
+
+    .image-container:hover .image-bottom {
+        z-index: 2;
+    }
+</style>
+
+<main class="bg-gray-100">
+    <div class="parallax-container" style="background-image: url('{{ asset('assets/img/glops/coclit.jpg') }}');">
+        <div class="parallax-text">
+            <h1 class="text-white text-4xl font-bold">Titre de la Page</h1>
+            <p class="text-white text-lg">Texte succinct</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="image-section">
+            <div class="image-left">
+                <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="w-full h-full object-cover initial-right">
+                <div class="text-right initial-right">
+                    <h2 class="text-2xl font-bold">Titre 1</h2>
+                    <p class="text-lg">Texte 1</p>
+                </div>
+            </div>
+            <div class="image-right">
+                <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="w-full h-full object-cover initial-left">
+                <div class="text-left initial-left">
+                    <h2 class="text-2xl font-bold">Titre 2</h2>
+                    <p class="text-lg">Texte 2</p>
+                </div>
+            </div>
+            <div class="image-left">
+                <img src="{{ asset('assets/img/glops/mixtur.jpg') }}" alt="Image 3" class="w-full h-full object-cover initial-right">
+                <div class="text-right initial-right">
+                    <h2 class="text-2xl font-bold">Titre 3</h2>
+                    <p class="text-lg">Texte 3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nouvelle section avec les deux images superposées -->
+    <div class="overlapping-images-container">
+        <div class="image-container">
+            <img src="{{ asset('assets/img/glops/embrouillocrée.jpg') }}" alt="Image 1" class="image-top">
+            <img src="{{ asset('assets/img/glops/cosmos_big_bang.jpg') }}" alt="Image 2" class="image-bottom">
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sections = document.querySelectorAll('.image-left, .image-right, .overlapping-images-container');
+
+    sections.forEach(function (section) {
+        const images = section.querySelectorAll('img');
+        const texts = section.querySelectorAll('.text-right, .text-left');
+
+        // Observer l'entrée dans le viewport pour chaque section
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    section.classList.add('in-view');
+                    images.forEach(img => img.classList.add('in-view'));
+                    texts.forEach(text => text.classList.add('in-view'));
+                } else {
+                    section.classList.remove('in-view');
+                    images.forEach(img => img.classList.remove('in-view'));
+                    texts.forEach(text => text.classList.remove('in-view'));
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observer.observe(section);
+    });
+});
+</script>
+{% endblock %}

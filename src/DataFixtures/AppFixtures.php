@@ -24,6 +24,7 @@ class AppFixtures extends Fixture
     {
         $this->faker = Factory::create('fr_FR');
         $this->hasher = $hasher; // Injecting password hashing service
+        // lancer les tests avec la commande php bin/phpunit
     }
 
     public function load(ObjectManager $manager): void
@@ -259,4 +260,5 @@ class AppFixtures extends Fixture
                 $manager->persist($contact);
             }
         }
+        // lancer les tests avec la commande php bin/phpunit
 }
